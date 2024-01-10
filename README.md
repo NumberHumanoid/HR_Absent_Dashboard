@@ -1,6 +1,6 @@
 # Employee Wellness Incentives
 
-
+![HR_banner](assets/40626484.jpg)
 
 ## Table of Contents
 - [Project Overview](#project-overview)
