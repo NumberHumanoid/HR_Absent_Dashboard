@@ -1,6 +1,6 @@
 # Employee Wellness Incentives
 
-![HR_banner](assets/40626484.jpg)
+![HR_banner](assets/HR_banner.png)
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -37,5 +37,4 @@ SQL Development: Developed SQL queries for data extraction and manipulation, foc
 * **Power BI**  (Data Visualization & Dashboard creation)
 
 ## References
-References will be added here based on the materials, codes, or papers referred to during the project.
 
