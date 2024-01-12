@@ -1,0 +1,66 @@
+-- creating a join table 
+SELECT *
+FROM absenteeism_at_work a
+LEFT JOIN compensation c
+ON a.id = c.id
+LEFT JOIN reasons r
+ON a.`Reason for absence` = r.Number;
+
+
+-- Defining and Finding the healthiest employees for bonus
+SELECT * 
+FROM absenteeism_at_work
+WHERE `Social drinker` = 0 AND `Social smoker` = 0 
+AND `Body mass index` < 25 AND `Absenteeism time in hours` < (SELECT AVG(`Absenteeism time in hours`) 
+																FROM absenteeism_at_work);
+
+-- compensation rate increase for non-smokers / budget $983,221 so a .68 increase per hour / $1,414.4 per year
+SELECT COUNT(*) AS non_smokers
+FROM absenteeism_at_work
+WHERE `Social smoker` = 0 
+
+
+
+-- optimizing the query
+SELECT a.ID,
+r.reason,
+`Month of absence`,
+CASE 
+	WHEN `Month of absence` IN (12,1,2) THEN 'Winter'
+	WHEN `Month of absence` IN (3,4,5) THEN 'Spring'
+    WHEN `Month of absence` IN (6,7,8) THEN 'Summer'
+    WHEN `Month of absence` IN (9,10,11) THEN 'Fall'
+    ELSE 'Unknown' 
+END AS Season_names,
+`Body mass index`,
+CASE 
+	WHEN `Body mass index` < 18.5 THEN 'Under_weight'
+    WHEN `Body mass index` BETWEEN 18.5 AND 25 THEN 'Healthy_Weight'
+    WHEN `Body mass index` BETWEEN 25 AND 30 THEN 'Over_weight'
+    WHEN `Body mass index` > 30 THEN 'Obese'
+    ELSE 'Unknown'
+END AS BMI_Category,
+`Day of the week`,
+`Transportation expense`,
+education,
+son AS Children,
+`Social drinker`,
+`Social smoker`,
+Pet,
+`Disciplinary failure`,
+age,
+CASE 
+	WHEN Age BETWEEN 0 AND 30 THEN '20s'
+    WHEN Age BETWEEN 30 AND 40 THEN '30s'
+    WHEN Age BETWEEN 40 AND 50 THEN '40s'
+    WHEN Age BETWEEN 50 AND 60 THEN '50s'
+    WHEN Age BETWEEN 60 AND 70 THEN '60s'
+    WHEN Age BETWEEN 70 AND 100 THEN 'senor'
+ELSE 'Unknown' END AS age_group,
+`Work load Average/day`,
+`Absenteeism time in hours`
+FROM absenteeism_at_work a
+LEFT JOIN compensation c
+ON a.id = c.id
+LEFT JOIN reasons r
+ON a.`Reason for absence` = r.Number;
